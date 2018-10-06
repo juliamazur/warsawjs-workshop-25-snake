@@ -1,14 +1,14 @@
 {
-  "main.css": "/juliamazur/warsawjs-workshop-25-snake/static/css/main.16f64b7a.chunk.css",
-  "main.js": "/juliamazur/warsawjs-workshop-25-snake/static/js/main.a66ae998.chunk.js",
-  "main.js.map": "/juliamazur/warsawjs-workshop-25-snake/static/js/main.a66ae998.chunk.js.map",
-  "static/js/1.6105a37c.chunk.js": "/juliamazur/warsawjs-workshop-25-snake/static/js/1.6105a37c.chunk.js",
-  "static/js/1.6105a37c.chunk.js.map": "/juliamazur/warsawjs-workshop-25-snake/static/js/1.6105a37c.chunk.js.map",
-  "runtime~main.js": "/juliamazur/warsawjs-workshop-25-snake/static/js/runtime~main.efcad44b.js",
-  "runtime~main.js.map": "/juliamazur/warsawjs-workshop-25-snake/static/js/runtime~main.efcad44b.js.map",
-  "static/media/logo.svg": "/juliamazur/warsawjs-workshop-25-snake/static/media/logo.5d5d9eef.svg",
-  "static/css/main.16f64b7a.chunk.css.map": "/juliamazur/warsawjs-workshop-25-snake/static/css/main.16f64b7a.chunk.css.map",
-  "index.html": "/juliamazur/warsawjs-workshop-25-snake/index.html",
-  "precache-manifest.3dcf9a68092105135c6f764c61ae8e97.js": "/juliamazur/warsawjs-workshop-25-snake/precache-manifest.3dcf9a68092105135c6f764c61ae8e97.js",
-  "service-worker.js": "/juliamazur/warsawjs-workshop-25-snake/service-worker.js"
+  "main.css": "/warsawjs-workshop-25-snake/static/css/main.16f64b7a.chunk.css",
+  "main.js": "/warsawjs-workshop-25-snake/static/js/main.8fc882b5.chunk.js",
+  "main.js.map": "/warsawjs-workshop-25-snake/static/js/main.8fc882b5.chunk.js.map",
+  "static/js/1.6105a37c.chunk.js": "/warsawjs-workshop-25-snake/static/js/1.6105a37c.chunk.js",
+  "static/js/1.6105a37c.chunk.js.map": "/warsawjs-workshop-25-snake/static/js/1.6105a37c.chunk.js.map",
+  "runtime~main.js": "/warsawjs-workshop-25-snake/static/js/runtime~main.9353bc6d.js",
+  "runtime~main.js.map": "/warsawjs-workshop-25-snake/static/js/runtime~main.9353bc6d.js.map",
+  "static/media/logo.svg": "/warsawjs-workshop-25-snake/static/media/logo.5d5d9eef.svg",
+  "static/css/main.16f64b7a.chunk.css.map": "/warsawjs-workshop-25-snake/static/css/main.16f64b7a.chunk.css.map",
+  "index.html": "/warsawjs-workshop-25-snake/index.html",
+  "precache-manifest.afacd262529190c485e43e06715031df.js": "/warsawjs-workshop-25-snake/precache-manifest.afacd262529190c485e43e06715031df.js",
+  "service-worker.js": "/warsawjs-workshop-25-snake/service-worker.js"
 }
