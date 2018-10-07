@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Snake from './components/Snake';
 import Fruit from './components/Fruit';
+import Bomb from './components/Bomb';
 import './App.css';
 
 class App extends Component {
@@ -29,6 +30,7 @@ class App extends Component {
           },
       ],
       fruits: [],
+      bombs: [],
   };
 
   state = this.defaultState;
@@ -62,15 +64,19 @@ class App extends Component {
       const snakeHead = this.state.snakeSegments[0];
       this.state.snakeSegments.map(((segment, index) => {
           if(index !== 0 && this.doItemsCollide(snakeHead, segment)) {
-              this.pause();
-              const newState = {
-                  ...this.state,
-                  gameOver: true,
-              };
-              this.setState(newState);
+              this.gameOver();
           }
           return true;
       }))
+  }
+
+  gameOver = () => {
+      this.pause();
+      const newState = {
+          ...this.state,
+          gameOver: true,
+      };
+      this.setState(newState);
   }
 
   showNewFruits = () => {
@@ -112,6 +118,45 @@ class App extends Component {
       return;
    }
 
+    showNewBombs = () => {
+        if(this.state.bombs.length > 1 || Math.floor((Math.random() * 10) + 1) !== 1) {
+            return;
+        }
+
+        const newBomb = {
+            r: 8,
+            cx: 10 * Math.floor((Math.random() * 30) + 1),
+            cy: 10 * Math.floor((Math.random() * 30) + 1),
+        }
+
+        let bombs = this.state.bombs.slice();
+        bombs.push(newBomb);
+
+        const newState = {
+            ...this.state,
+            bombs: bombs,
+        };
+        this.setState(newState);
+        return;
+    }
+
+    hideRottenBombs = () => {
+        if(Math.floor((Math.random() * 30) + 1) !== 1) {
+            return;
+        }
+
+        let bombs = this.state.bombs.slice();
+
+        bombs.splice(-1,1);
+
+        const newState = {
+            ...this.state,
+            bombs: bombs,
+        };
+        this.setState(newState);
+        return;
+    }
+
   eatFruits = () => {
     let growth = this.state.growth;
     let fruits = this.state.fruits.slice();
@@ -133,6 +178,17 @@ class App extends Component {
       this.setState(newState);
       return;
   }
+
+    eatBombs = () => {
+        const snakeHead = this.state.snakeSegments[0];
+
+        this.state.bombs.map(((bomb, index) => {
+            if(this.doItemsCollide(snakeHead, bomb)) {
+                this.gameOver();
+            }
+            return true;
+        }))
+    }
 
   setDirection = (x, y)  => {
 
@@ -163,10 +219,13 @@ class App extends Component {
     if (this.state.paused) {
         return;
     }
+    this.eatBombs();
     this.eatFruits();
     this.moveSnake();
     this.showNewFruits();
     this.hideRottenFruits();
+      this.showNewBombs();
+      this.hideRottenBombs();
    }
 
    restart = () => {
@@ -252,13 +311,19 @@ class App extends Component {
       <div className="App">
         <div className="board">
             {this.renderGameOver()}
-            {this.renderGameOver()}
           <svg height={this.props.boardHeight} width={this.props.boardWidth}>
             <Snake snakeSegments={this.state.snakeSegments}/>
               {
                   this.state.fruits.map((fruit, index) => {
                       return (
                           <Fruit key={index} cx={fruit.cx} cy={fruit.cy} r={fruit.r} />
+                      )
+                  })
+              }
+              {
+                  this.state.bombs.map((bomb, index) => {
+                      return (
+                          <Bomb key={index} cx={bomb.cx} cy={bomb.cy} r={bomb.r} />
                       )
                   })
               }
