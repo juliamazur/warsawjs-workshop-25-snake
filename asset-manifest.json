@@ -1,13 +1,13 @@
 {
   "main.css": "/warsawjs-workshop-25-snake/static/css/main.b884ecfe.chunk.css",
-  "main.js": "/warsawjs-workshop-25-snake/static/js/main.0448e77a.chunk.js",
-  "main.js.map": "/warsawjs-workshop-25-snake/static/js/main.0448e77a.chunk.js.map",
+  "main.js": "/warsawjs-workshop-25-snake/static/js/main.0c8b9879.chunk.js",
+  "main.js.map": "/warsawjs-workshop-25-snake/static/js/main.0c8b9879.chunk.js.map",
   "static/js/1.8a04b72c.chunk.js": "/warsawjs-workshop-25-snake/static/js/1.8a04b72c.chunk.js",
   "static/js/1.8a04b72c.chunk.js.map": "/warsawjs-workshop-25-snake/static/js/1.8a04b72c.chunk.js.map",
   "runtime~main.js": "/warsawjs-workshop-25-snake/static/js/runtime~main.9353bc6d.js",
   "runtime~main.js.map": "/warsawjs-workshop-25-snake/static/js/runtime~main.9353bc6d.js.map",
   "static/css/main.b884ecfe.chunk.css.map": "/warsawjs-workshop-25-snake/static/css/main.b884ecfe.chunk.css.map",
   "index.html": "/warsawjs-workshop-25-snake/index.html",
-  "precache-manifest.6710a97741b5a75bc04b4a761bc58925.js": "/warsawjs-workshop-25-snake/precache-manifest.6710a97741b5a75bc04b4a761bc58925.js",
+  "precache-manifest.5de79be0fc5f087cc61a3e742402f96d.js": "/warsawjs-workshop-25-snake/precache-manifest.5de79be0fc5f087cc61a3e742402f96d.js",
   "service-worker.js": "/warsawjs-workshop-25-snake/service-worker.js"
 }
