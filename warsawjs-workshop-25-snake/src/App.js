@@ -119,7 +119,7 @@ class App extends Component {
    }
 
     showNewBombs = () => {
-        if(this.state.bombs.length > 1 || Math.floor((Math.random() * 10) + 1) !== 1) {
+        if(this.state.bombs.length > 1 || Math.floor((Math.random() * 60) + 1) !== 1) {
             return;
         }
 
@@ -141,13 +141,13 @@ class App extends Component {
     }
 
     hideRottenBombs = () => {
-        if(Math.floor((Math.random() * 30) + 1) !== 1) {
+        if(this.state.bombs.length === 1 || Math.floor((Math.random() * 30) + 1) !== 1) {
             return;
         }
 
         let bombs = this.state.bombs.slice();
 
-        bombs.splice(-1,1);
+        bombs.shift();
 
         const newState = {
             ...this.state,
@@ -224,8 +224,8 @@ class App extends Component {
     this.moveSnake();
     this.showNewFruits();
     this.hideRottenFruits();
-      this.showNewBombs();
-      this.hideRottenBombs();
+    this.showNewBombs();
+    this.hideRottenBombs();
    }
 
    restart = () => {
