@@ -21,7 +21,7 @@ class Snake extends React.Component {
         return (
             this.props.snakeSegments.map((segment, index) => {
                 return (
-                    <circle key={index} cx={segment.cx} cy={segment.cy} r={this.props.r} fill="lightgreen" />
+                    <circle key={index} cx={segment.cx} cy={segment.cy} r={segment.r} fill="lightgreen" />
                 )
               })
         );

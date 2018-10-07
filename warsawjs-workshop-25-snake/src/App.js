@@ -8,8 +8,6 @@ class App extends Component {
   static defaultProps = {
     boardWidth: 300,
     boardHeight: 300,
-    r: 10,
-    fruitR: 7,
     speed: 100,
   };
 
@@ -28,14 +26,7 @@ class App extends Component {
                 {
                     cx: 50,
                     cy: 50,
-                },
-                {
-                    cx: 70,
-                    cy: 50,
-                },
-                {
-                    cx: 90,
-                    cy: 50,
+                    r: 10,
                 },
             ],
             fruits: [],
@@ -49,8 +40,8 @@ class App extends Component {
       const oldHead = snakeSegments[0];
       let newHead = {...oldHead};
       // TODO waz ucieka
-      newHead.cx = (oldHead.cx + 2 * this.props.r * this.state.direction.x + this.props.boardWidth) % this.props.boardWidth;
-      newHead.cy = (oldHead.cy + 2 * this.props.r * this.state.direction.y + this.props.boardHeight) % this.props.boardHeight;
+      newHead.cx = (oldHead.cx + 2 * oldHead.r * this.state.direction.x + this.props.boardWidth) % this.props.boardWidth;
+      newHead.cy = (oldHead.cy + 2 * oldHead.r * this.state.direction.y + this.props.boardHeight) % this.props.boardHeight;
       if (!growth) {
           snakeSegments.splice(-1,1);
       } else {
@@ -68,12 +59,23 @@ class App extends Component {
       return;
   }
 
+  dieIfCollide = () => {
+      const snakeHead = this.state.snakeSegments[0];
+      this.state.snakeSegments.map(((segment, index) => {
+          if(index !== 0 && this.doItemsCollide(snakeHead, segment)) {
+              this.pause();
+          }
+          return true;
+      }))
+  }
+
   showNewFruits = () => {
-      if(Math.floor((Math.random() * 10) + 1) !== 1) {
+      if(this.state.fruits.length > 9 || Math.floor((Math.random() * 10) + 1) !== 1) {
          return;
       }
 
       const newFruit = {
+          r: 7,
           cx: 10 * Math.floor((Math.random() * 30) + 1),
           cy: 10 * Math.floor((Math.random() * 30) + 1),
       }
@@ -90,7 +92,7 @@ class App extends Component {
   }
 
   hideRottenFruits = () => {
-      if(Math.floor((Math.random() * 30) + 1) !== 1) {
+      if(this.state.fruits.length < 3 || Math.floor((Math.random() * 30) + 1) !== 1) {
           return;
       }
 
@@ -116,6 +118,7 @@ class App extends Component {
           fruits.splice(index, 1);
           growth++;
       }
+      return true;
     }))
 
       const newState = {
@@ -139,13 +142,17 @@ class App extends Component {
   }
 
   doItemsCollide = (a, b) => {
-    const minRequiredDistance = 17; //szpachla
+    const minRequiredDistance = a.r + b.r;
     return Math.abs(a.cx - b.cx) < minRequiredDistance
       && Math.abs(a.cy - b.cy) < minRequiredDistance;
   }
 
   tick = () => {
     // console.log('tick');
+    this.dieIfCollide();
+    if (this.state.paused) {
+        return;
+    }
     this.eatFruits();
     this.moveSnake();
     this.showNewFruits();
@@ -215,11 +222,11 @@ class App extends Component {
       <div className="App">
         <div className="board">
           <svg height={this.props.boardHeight} width={this.props.boardWidth}>
-            <Snake snakeSegments={this.state.snakeSegments} r={this.props.r}/>
+            <Snake snakeSegments={this.state.snakeSegments}/>
               {
                   this.state.fruits.map((fruit, index) => {
                       return (
-                          <Fruit key={index} cx={fruit.cx} cy={fruit.cy} r={this.props.fruitR} />
+                          <Fruit key={index} cx={fruit.cx} cy={fruit.cy} r={fruit.r} />
                       )
                   })
               }
