@@ -5,6 +5,8 @@ import './App.css';
 
 class App extends Component {
 
+  gameInterval = null;
+
   static defaultProps = {
     boardWidth: 300,
     boardHeight: 300,
@@ -14,9 +16,8 @@ class App extends Component {
   constructor(props) {
         super(props);
 
-        let gameInterval = setInterval(this.tick, this.props.speed);
+        //this.gameInterval = setInterval(this.tick, this.props.speed);
         this.state = {
-            gameInterval: gameInterval,
             growth: 0,
             direction: {
                 x: 1,
@@ -39,7 +40,6 @@ class App extends Component {
 
       const oldHead = snakeSegments[0];
       let newHead = {...oldHead};
-      // TODO waz ucieka
       newHead.cx = (oldHead.cx + 2 * oldHead.r * this.state.direction.x + this.props.boardWidth) % this.props.boardWidth;
       newHead.cy = (oldHead.cy + 2 * oldHead.r * this.state.direction.y + this.props.boardHeight) % this.props.boardHeight;
       if (!growth) {
@@ -131,7 +131,13 @@ class App extends Component {
   }
 
   setDirection = (x, y)  => {
-    const newState = {
+
+    // don't go backwards
+    if(this.state.direction.x * x || this.state.direction.y * y) {
+        return;
+    }
+
+      const newState = {
         ...this.state,
         direction: {
             x: x,
@@ -168,8 +174,7 @@ class App extends Component {
    }
 
    pause = ()  => {
-        // TODO nie modyfikowac state
-       clearInterval(this.state.gameInterval);
+       clearInterval(this.gameInterval);
        const newState = {
            ...this.state,
            paused: true,
@@ -178,10 +183,9 @@ class App extends Component {
    }
 
    start = ()  => {
-       let gameInterval = setInterval(this.tick, this.props.speed);
+       this.gameInterval = setInterval(this.tick, this.props.speed);
        const newState = {
            ...this.state,
-           gameInterval: gameInterval,
            paused: false,
        };
        this.setState(newState);
@@ -215,6 +219,7 @@ class App extends Component {
               this.togglePause();
             }
         });
+        this.start();
     }
 
   render() {
