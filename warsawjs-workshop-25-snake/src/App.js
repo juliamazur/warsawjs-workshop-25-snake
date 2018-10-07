@@ -13,26 +13,25 @@ class App extends Component {
     speed: 100,
   };
 
-  constructor(props) {
-        super(props);
+  defaultState = {
+      paused: false,
+      gameOver: false,
+      growth: 0,
+      direction: {
+          x: 1,
+          y: 0,
+      },
+      snakeSegments: [
+          {
+              cx: 50,
+              cy: 50,
+              r: 10,
+          },
+      ],
+      fruits: [],
+  };
 
-        //this.gameInterval = setInterval(this.tick, this.props.speed);
-        this.state = {
-            growth: 0,
-            direction: {
-                x: 1,
-                y: 0,
-            },
-            snakeSegments: [
-                {
-                    cx: 50,
-                    cy: 50,
-                    r: 10,
-                },
-            ],
-            fruits: [],
-        };
-    }
+  state = this.defaultState;
 
   moveSnake = () => {
       let snakeSegments = this.state.snakeSegments.slice();
@@ -64,6 +63,11 @@ class App extends Component {
       this.state.snakeSegments.map(((segment, index) => {
           if(index !== 0 && this.doItemsCollide(snakeHead, segment)) {
               this.pause();
+              const newState = {
+                  ...this.state,
+                  gameOver: true,
+              };
+              this.setState(newState);
           }
           return true;
       }))
@@ -165,8 +169,20 @@ class App extends Component {
     this.hideRottenFruits();
    }
 
+   restart = () => {
+       if(this.state.gameOver) {
+           this.setState(this.defaultState);
+           this.start();
+       }
+   }
+
    togglePause = ()  => {
-       if (this.state.paused) {
+
+      if(this.state.gameOver) {
+          return;
+      }
+
+       if(this.state.paused) {
          this.start();
        } else {
          this.pause();
@@ -213,19 +229,30 @@ class App extends Component {
             }
         })
         window.addEventListener('keypress', (e) => {
-            // console.log('keypress');
-            // console.log(e.keyCode);
+            // spacebar
             if (e.keyCode === 32) {
               this.togglePause();
+            }
+            // enter
+            if (e.keyCode === 13) {
+                this.restart();
             }
         });
         this.start();
     }
 
+  renderGameOver() {
+      if(this.state.gameOver) {
+          return (<div className='game-over'><p>Game over.<br/> Press 'enter' to continue.</p></div>);
+      }
+  }
+
   render() {
     return (
       <div className="App">
         <div className="board">
+            {this.renderGameOver()}
+            {this.renderGameOver()}
           <svg height={this.props.boardHeight} width={this.props.boardWidth}>
             <Snake snakeSegments={this.state.snakeSegments}/>
               {
